@@ -1,28 +1,19 @@
-# Vehicle Management System
+# Vehicle Rental Management System
 
-## Description
+## Project Description
+This project implements a Vehicle Rental Management System using object-oriented principles in C#. The system includes various types of vehicles such as cars, trucks, and motorcycles, and allows for their management within a rental agency. The project demonstrates the use of inheritance, abstraction, and encapsulation.
 
-This is a simple vehicle management system that allows you to add, edit, delete and view vehicles. It is buit using dotnet.
-
-## Installation
-
-1. Clone the repository
-2. Run the following command to install the required packages
-```bash
-dotnet restore
-```
-3. Run the following command to build the project
-```bash
-dotnet build
-```
+## Setup Instructions
+1. Clone the repository to your local machine.
+2. Open the solution in Visual Studio.
+3. Build the solution to restore the necessary dependencies.
+4. Run the program.
 
 ## Usage
+- The main functionality of the system is demonstrated in the `Main` method of the `Program` class.
+- The program adds vehicles to the rental agency, displays the fleet, rents vehicles, and tracks total revenue.
 
-1. Run the following command to start the project
-```bash
-dotnet run
-```
-To customize the output, you can use the following options:
-
-Update the program.cs file to change the default values.
-
+## Classes
+- **Vehicle**: Represents a generic vehicle.
+- **Car**: Inherits from `Vehicle` and adds car-specific properties.
+- **Truck**: Inherits from `Vehicle` and adds truck-specific properties

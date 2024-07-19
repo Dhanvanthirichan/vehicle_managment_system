@@ -1,44 +1,67 @@
+using System;
+using System.Collections.Generic;
 
 public class RentalAgency
 {
-    private List<Vehicle> Fleet { get; set; }
+    private Vehicle[] Fleet;
+    private int vehicleCount;
     public decimal TotalRevenue { get; private set; }
 
-    public RentalAgency()
+    public RentalAgency(int fleetSize)
     {
-        Fleet = new List<Vehicle>();
+        Fleet = new Vehicle[fleetSize];
+        vehicleCount = 0;
         TotalRevenue = 0;
     }
 
     public void AddVehicle(Vehicle vehicle)
     {
-        Fleet.Add(vehicle);
+        if (vehicleCount < Fleet.Length)
+        {
+            Fleet[vehicleCount++] = vehicle;
+        }
+        else
+        {
+            Console.WriteLine("Fleet is full. Cannot add more vehicles.");
+        }
     }
 
     public void RemoveVehicle(Vehicle vehicle)
     {
-        Fleet.Remove(vehicle);
+        for (int i = 0; i < vehicleCount; i++)
+        {
+            if (Fleet[i] == vehicle)
+            {
+                Fleet[i] = Fleet[--vehicleCount];
+                Fleet[vehicleCount] = null;
+                Console.WriteLine($"Removed {vehicle.Manufacturer} {vehicle.Model} from the fleet.");
+                return;
+            }
+        }
+        Console.WriteLine("Vehicle not found in the fleet.");
     }
 
     public void RentVehicle(Vehicle vehicle, int days)
     {
-        if (Fleet.Contains(vehicle))
+        foreach (var v in Fleet)
         {
-            decimal rentalCost = vehicle.RentalPrice * days;
-            TotalRevenue += rentalCost;
-            Console.WriteLine($"Rented {vehicle.Manufacturer} {vehicle.Model} for {days} days. Cost: ${rentalCost}");
+            if (v == vehicle)
+            {
+                decimal rentalCost = vehicle.RentalPrice * days;
+                TotalRevenue += rentalCost;
+                Console.WriteLine($"Rented {vehicle.Manufacturer} {vehicle.Model} for {days} days. Cost: {rentalCost:C}");
+                return;
+            }
         }
-        else
-        {
-            Console.WriteLine("Vehicle not found in the fleet.");
-        }
+        Console.WriteLine("Vehicle not found in the fleet.");
     }
 
     public void DisplayAllVehicles()
     {
-        foreach (var vehicle in Fleet)
+        Console.WriteLine("Current Fleet:");
+        for (int i = 0; i < vehicleCount; i++)
         {
-            vehicle.DisplayDetails();
+            Fleet[i].DisplayDetails();
             Console.WriteLine();
         }
     }
